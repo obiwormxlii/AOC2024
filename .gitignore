@@ -26,3 +26,5 @@ aoc2024-*.tar
 /tmp/
 
 /.direnv/
+
+.envrc
