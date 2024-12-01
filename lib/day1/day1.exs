@@ -13,13 +13,11 @@ test_input = """
 defmodule Day1 do
 
   def solve(input) do
-    sort_input(input)
+    number_lists = sort_input(input)
     |> Enum.map(&Enum.map(&1, fn x -> String.to_integer(x) end))
-    |> Enum.map(&Enum.sort(&1))
-    |> get_similarity_score()
-    # |> Enum.zip()
-    # |> Enum.map(&find_difference/1)
-    # |> Enum.sum()
+
+    part1(number_lists)
+    part2(number_lists)
 
   end
 
@@ -46,12 +44,23 @@ defmodule Day1 do
     end
   end
 
-  defp get_similarity_score([list_a, list_b]) do
+  defp part1(number_lists) do
+    number_lists
+    |> Enum.map(&Enum.sort/1)
+    |> Enum.zip()
+    |> Enum.map(&find_difference/1)
+    |> Enum.sum()
+    |> IO.inspect(label: "Part 1")
+
+  end
+
+  defp part2([list_a, list_b]) do
     list_a
     |> Enum.map(fn x -> %{x => Enum.reduce(list_b, 0, fn y, acc -> get_count(y,x,acc) end)} end)
     |> Enum.concat()
     |> Enum.map(&Tuple.product(&1))
     |> Enum.sum()
+    |> IO.inspect(label: "Part 2")
   end
 
   defp get_count(testing, tester, acc) do
@@ -64,5 +73,4 @@ defmodule Day1 do
 
 end
 
-solution = Day1.solve(file_input)
-IO.inspect(solution)
+Day1.solve(test_input)
