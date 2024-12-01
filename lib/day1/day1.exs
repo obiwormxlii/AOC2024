@@ -16,9 +16,10 @@ defmodule Day1 do
     sort_input(input)
     |> Enum.map(&Enum.map(&1, fn x -> String.to_integer(x) end))
     |> Enum.map(&Enum.sort(&1))
-    |> Enum.zip()
-    |> Enum.map(&find_difference/1)
-    |> Enum.sum()
+    |> get_similarity_score()
+    # |> Enum.zip()
+    # |> Enum.map(&find_difference/1)
+    # |> Enum.sum()
 
   end
 
@@ -42,6 +43,22 @@ defmodule Day1 do
         a-b
       _ ->
         0
+    end
+  end
+
+  defp get_similarity_score([list_a, list_b]) do
+    list_a
+    |> Enum.map(fn x -> %{x => Enum.reduce(list_b, 0, fn y, acc -> get_count(y,x,acc) end)} end)
+    |> Enum.concat()
+    |> Enum.map(&Tuple.product(&1))
+    |> Enum.sum()
+  end
+
+  defp get_count(testing, tester, acc) do
+    if testing == tester do
+      acc+1
+    else
+        acc
     end
   end
 
