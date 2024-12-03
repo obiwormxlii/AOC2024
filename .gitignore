@@ -29,4 +29,4 @@ aoc2024-*.tar
 
 .envrc
 
-.txt
+*.txt
