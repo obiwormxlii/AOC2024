@@ -35,7 +35,7 @@ file_rules = File.read!("input4a.txt")
 file_updates = File.read!("input4b.txt")
 
 
-defmodule Day4 do
+defmodule Day5 do
   def part1(rules, updates) do
     rules = parse_input(rules, "|")
     updates = parse_input(updates, ",")
@@ -114,4 +114,4 @@ end
 
 
 # Day4.part2(test_rules, test_updates)
-Day4.part2(file_rules, file_updates)
+Day5.part2(file_rules, file_updates)
